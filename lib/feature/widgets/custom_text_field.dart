@@ -36,7 +36,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      keyboardType: TextInputType.number,
+      // keyboardType: TextInputType.number,
       textAlign: widget.textAlign ?? TextAlign.start,
       maxLines: widget.maxLines,
       style: widget.style ??

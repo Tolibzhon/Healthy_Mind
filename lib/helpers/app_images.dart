@@ -7,6 +7,8 @@ class AppImages {
   static const String containBgImage = 'assets/images/containBgImage.png';
   static const String diaryIcon = 'assets/images/diaryIcon.png';
   static const String feeling = 'assets/images/feeling.png';
+  static const String image23 = 'assets/images/image23.png';
+  static const String moreIcon = 'assets/images/moreIcon.png';
   static const String navbarHome = 'assets/images/navbarHome.png';
   static const String navbarHomeActive = 'assets/images/navbarHomeActive.png';
   static const String navbarMemor = 'assets/images/navbarMemor.png';

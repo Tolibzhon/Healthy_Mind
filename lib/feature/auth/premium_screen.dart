@@ -117,7 +117,7 @@ class PremiumScreen extends StatelessWidget {
                 //   },
                 // );
               },
-              text: 'Buy premium for \$0,99',
+              text: 'Buy premium for \$1,50',
             ),
             const SizedBox(height: 40),
             Row(
