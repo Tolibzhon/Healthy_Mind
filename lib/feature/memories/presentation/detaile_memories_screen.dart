@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:healthy_mind/feature/logic/models/memories_hive_model.dart';
 import 'package:healthy_mind/feature/widgets/spaces.dart';
-import 'package:healthy_mind/helpers/app_images.dart';
 import 'package:healthy_mind/helpers/app_text_styles.dart';
 
 class DetaileMemoriesScreen extends StatefulWidget {

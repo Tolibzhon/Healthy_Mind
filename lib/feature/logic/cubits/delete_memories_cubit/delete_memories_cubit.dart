@@ -14,7 +14,9 @@ class DeleteMemoriesCubit extends Cubit<DeleteMemoriesState> {
     emit(const DeleteMemoriesState.loading());
     try {
       await repo.deleteMemories(id);
+      print('bbbbbbb');
       emit(const DeleteMemoriesState.success());
+      print('ccccccc');
     } catch (e) {
       emit(DeleteMemoriesState.error(e.toString()));
     }

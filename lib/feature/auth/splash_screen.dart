@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:healthy_mind/feature/auth/on_boarding_screen.dart';
 import 'package:healthy_mind/feature/widgets/spaces.dart';
-import 'package:healthy_mind/helpers/app_images.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

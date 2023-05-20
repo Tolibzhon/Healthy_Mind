@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:healthy_mind/feature/auth/splash_screen.dart';
-import 'package:healthy_mind/feature/logic/cubits/delete_memories_cubit/delete_memories_cubit.dart';
 import 'package:healthy_mind/feature/logic/cubits/get_memories_cubit/get_memories_cubit.dart';
 import 'package:healthy_mind/feature/logic/cubits/get_note_cubit/get_note_cubit.dart';
 import 'package:healthy_mind/feature/logic/models/memories_hive_model.dart';

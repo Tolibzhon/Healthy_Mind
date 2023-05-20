@@ -72,15 +72,13 @@ class WidgetMemoriesContainer extends StatelessWidget {
                             Radius.circular(10),
                           ),
                         ),
-                        itemBuilder: (BuildContext context) => [
+                        itemBuilder: (_) => [
                           PopupMenuItem(
-                            onTap: () async {
-                              // context
-                              //     .read<DeleteMemoriesCubit>()
-                              //     .delete(model.id);
-                              // Navigator.of(context).pop();
-
-                              // print('aaaaaaa${model.id}');
+                            onTap: ()  {
+                              context
+                                  .read<DeleteMemoriesCubit>()
+                                  .delete(model.id);
+                              print('aaaaaaa${model.id}');
                             },
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,31 +99,6 @@ class WidgetMemoriesContainer extends StatelessWidget {
                           ),
                         ],
                       );
-                      // PopupMenuButton(
-                      //     icon: Image.asset(
-                      //       AppImages.moreIcon,
-                      //       width: 20,
-                      //     ),
-                      //     onSelected: (value) {
-                      //       context
-                      //           .read<DeleteMemoriesCubit>()
-                      //           .delete(model.id);
-                      //     },
-                      //     itemBuilder: (context) {
-                      //       return <PopupMenuEntry>[
-                      //         PopupMenuItem(
-                      //             child: InkWell(
-                      //                 onTap: () {
-                      //                   context
-                      //                       .read<DeleteMemoriesCubit>()
-                      //                       .delete(model.id);
-                      //                   Navigator.of(context).pop();
-
-                      //                   print('aaaaaaa${model.id}');
-                      //                 },
-                      //                 child: Text('Close')))
-                      //       ];
-                      //     });
                     },
                   ),
                 ],

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:healthy_mind/feature/home/presentation/widget/widget_quotes_container.dart';
 import 'package:healthy_mind/helpers/app_text_styles.dart';
+import 'package:healthy_mind/helpers/saved_data.dart';
 
 class QuotesScreen extends StatefulWidget {
   const QuotesScreen({super.key});
@@ -25,21 +27,27 @@ class _QuotesScreenState extends State<QuotesScreen> {
           style: AppTextStyles.s20W600(color: Colors.black),
         ),
       ),
-      // body: Expanded(
-      //   child: ListView.separated(
-      //     itemCount: _quotesList.length,
-      //     separatorBuilder: (context, index) => const SizedBox(height: 12),
-      //     itemBuilder: (context, index) => WidgetQuotesContainer(
-      //       isActive: quotes == _quotesList[index],
-      //       onTap: () {
-      //         setState(() {
-      //           quotes = _quotesList[index];
-      //         });
-      //       },
-      //       quotes: _quotesList[index],
-      //     ),
-      //   ),
-      // ),
+      body: ListView.separated(
+        itemCount: _quotesList.length,
+        separatorBuilder: (context, index) => const SizedBox(height: 12),
+        itemBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: WidgetQuotesContainer(
+            isActive: quotes == _quotesList[index],
+            onTap: () async {
+              await SavedData.setQuotesDate(
+                _quotesList[index],
+              );
+              Navigator.pop(context);
+              setState(() {});
+              setState(() {
+                quotes = _quotesList[index];
+              });
+            },
+            quotes: _quotesList[index],
+          ),
+        ),
+      ),
     );
   }
 }

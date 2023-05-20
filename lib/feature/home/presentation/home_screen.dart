@@ -9,6 +9,7 @@ import 'package:healthy_mind/feature/widgets/app_indicator.dart';
 import 'package:healthy_mind/helpers/app_colors.dart';
 import 'package:healthy_mind/helpers/app_images.dart';
 import 'package:healthy_mind/helpers/app_text_styles.dart';
+import 'package:healthy_mind/helpers/saved_data.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,11 +19,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  
+
   @override
   void initState() {
     context.read<GetNoteCubit>().getNote();
+    // SavedData.getTextSmileDate();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,20 +57,60 @@ class _HomeScreenState extends State<HomeScreen> {
                   AppImages.feeling,
                   width: 188,
                 ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const FeelScreen(),
+                FutureBuilder(
+                  future: SavedData.getSmileDate(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      if (snapshot.data!.isNotEmpty) {
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const FeelScreen(),
+                              ),
+                            );
+                          },
+                          child: Text(snapshot.data ?? '',
+                              style: const TextStyle(
+                                fontSize: 90,
+                              )),
+                        );
+                      }
+                    }
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const FeelScreen(),
+                          ),
+                        );
+                      },
+                      child: Image.asset(
+                        AppImages.addIcon,
+                        width: 50,
                       ),
                     );
                   },
-                  child: Image.asset(
-                    AppImages.addIcon,
-                    width: 50,
-                  ),
-                )
+                ),
+                FutureBuilder(
+                  future: SavedData.getTextSmileDate(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      if (snapshot.data!.isNotEmpty) {
+                        return Positioned(
+                          bottom: 2,
+                          child: Text(
+                            snapshot.data ?? '',
+                            style: AppTextStyles.s20W600(color: Colors.black),
+                          ),
+                        );
+                      }
+                    }
+                    return Container();
+                  },
+                ),
               ],
             ),
           ),
@@ -82,9 +127,22 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             child: Column(
               children: [
-                Text(
-                  'Find direction to keep trying, even when it seems like no progress is being made',
-                  style: AppTextStyles.s16W300(color: Colors.black),
+                FutureBuilder(
+                  future: SavedData.getQuotesDate(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      if (snapshot.data!.isNotEmpty) {
+                        return Text(
+                          snapshot.data ?? '',
+                          style: AppTextStyles.s16W300(color: Colors.black),
+                        );
+                      }
+                    }
+                    return Text(
+                      'Find direction to keep trying, even when it seems like no progress is being made',
+                      style: AppTextStyles.s16W300(color: Colors.black),
+                    );
+                  },
                 ),
                 const Spacer(),
                 InkWell(
@@ -130,7 +188,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   success: (model) => model.isNotEmpty
                       ? Expanded(
                           child: ListView.separated(
-                            
                               itemCount: model.length,
                               separatorBuilder: (context, index) =>
                                   const SizedBox(height: 12),

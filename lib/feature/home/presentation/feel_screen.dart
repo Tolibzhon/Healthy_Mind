@@ -3,6 +3,7 @@ import 'package:healthy_mind/feature/home/presentation/widget/widget_feel_contai
 import 'package:healthy_mind/feature/widgets/custom_button.dart';
 import 'package:healthy_mind/helpers/app_images.dart';
 import 'package:healthy_mind/helpers/app_text_styles.dart';
+import 'package:healthy_mind/helpers/saved_data.dart';
 
 class FeelScreen extends StatefulWidget {
   const FeelScreen({super.key});
@@ -12,7 +13,7 @@ class FeelScreen extends StatefulWidget {
 }
 
 class _FeelScreenState extends State<FeelScreen> {
-  String feel = '';
+  int _index = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +40,19 @@ class _FeelScreenState extends State<FeelScreen> {
                   AppImages.feeling,
                   width: 188,
                 ),
-                const SizedBox(),
+                Text(
+                  _smileList[_index],
+                  style: const TextStyle(
+                    fontSize: 90,
+                  ),
+                ),
+                Positioned(
+                  bottom: 2,
+                  child: Text(
+                    _feelList[_index],
+                    style: AppTextStyles.s20W600(color: Colors.black),
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 20),
@@ -56,11 +69,11 @@ class _FeelScreenState extends State<FeelScreen> {
                     crossAxisSpacing: 20,
                     mainAxisExtent: 70),
                 itemBuilder: (context, index) => WidgetFeelContainer(
-                  isActive: feel == _feelList[index],
+                  isActive: _index == index,
                   feel: _feelList[index],
                   onTap: () {
                     setState(() {
-                      feel = _feelList[index];
+                      _index = index;
                     });
                   },
                   smile: _smileList[index],
@@ -71,7 +84,14 @@ class _FeelScreenState extends State<FeelScreen> {
             const Spacer(),
             CustomButton(
                 onPressed: () async {
-                  print(feel);
+                  await SavedData.setSmileDate(
+                    _smileList[_index],
+                  );
+                  await SavedData.setTextSmileDate(
+                    _feelList[_index],
+                  );
+                  Navigator.pop(context);
+                  setState(() {});
                 },
                 text: 'Save'),
             const SizedBox(height: 60),

@@ -15,7 +15,6 @@ import 'package:healthy_mind/helpers/app_colors.dart';
 import 'package:healthy_mind/helpers/app_text_styles.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'dart:convert';
 
 class AddMemoriesScreen extends StatefulWidget {
   const AddMemoriesScreen({super.key});
@@ -35,9 +34,6 @@ class _AddMemoriesScreenState extends State<AddMemoriesScreen> {
   File? _image;
   Uint8List? _bytes;
   String sss = '';
-
-//   String s = String.fromCharCodes(inputAsUint8List);
-// var outputAsUint8List = Uint8List.fromList(s.codeUnits);
 
   @override
   void initState() {

@@ -16,7 +16,6 @@ class WidgetFeelContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var colorF0912FFDarkBLue;
     return InkWell(
       onTap: onTap,
       child: Container(

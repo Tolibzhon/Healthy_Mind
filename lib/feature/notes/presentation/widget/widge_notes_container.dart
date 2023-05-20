@@ -67,15 +67,13 @@ class WidgetNotesContainer extends StatelessWidget {
                             Radius.circular(10),
                           ),
                         ),
-                        itemBuilder: (BuildContext context) => [
+                        itemBuilder: (_) => [
                           PopupMenuItem(
                             onTap: () async {
-                              // context
-                              //     .read<DeleteMemoriesCubit>()
-                              //     .delete(model.id);
-                              // Navigator.of(context).pop();
-
-                              // print('aaaaaaa${model.id}');
+                              context
+                                  .read<DeleteNoteCubit>()
+                                  .delete(model.id);
+                              print('aaaaaaa${model.id}');
                             },
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,

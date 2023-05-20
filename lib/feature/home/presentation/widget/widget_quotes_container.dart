@@ -4,7 +4,7 @@ import 'package:healthy_mind/helpers/app_colors.dart';
 import 'package:healthy_mind/helpers/app_images.dart';
 import 'package:healthy_mind/helpers/app_text_styles.dart';
 
-class WidgetQuotesContainer extends StatelessWidget {
+class WidgetQuotesContainer extends StatefulWidget {
   const WidgetQuotesContainer(
       {super.key,
       required this.quotes,
@@ -14,6 +14,11 @@ class WidgetQuotesContainer extends StatelessWidget {
   final bool isActive;
   final Function() onTap;
 
+  @override
+  State<WidgetQuotesContainer> createState() => _WidgetQuotesContainerState();
+}
+
+class _WidgetQuotesContainerState extends State<WidgetQuotesContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,7 +34,7 @@ class WidgetQuotesContainer extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            quotes,
+            widget.quotes,
             style: AppTextStyles.s16W300(color: Colors.black),
           ),
           const Spacer(),
@@ -41,9 +46,10 @@ class WidgetQuotesContainer extends StatelessWidget {
                   builder: (context) => const QuotesScreen(),
                 ),
               );
+              setState(() {});
             },
             child: InkWell(
-              onTap: onTap,
+              onTap: widget.onTap,
               child: Container(
                 height: 30,
                 width: 110,
@@ -61,7 +67,7 @@ class WidgetQuotesContainer extends StatelessWidget {
                           color: AppColors.color38B6FFBLue,
                         ),
                       ),
-                      isActive
+                      widget.isActive
                           ? Image.asset(
                               AppImages.checkIcon,
                               width: 10,
@@ -77,5 +83,6 @@ class WidgetQuotesContainer extends StatelessWidget {
         ],
       ),
     );
+  
   }
 }

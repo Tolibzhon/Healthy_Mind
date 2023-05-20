@@ -1,28 +1,33 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SavedData {
-  static Future<void> setHomeDate(String smile) async {
+  static Future<void> setSmileDate(String smile) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString('HomeDate', smile);
+    prefs.setString('SmileDate', smile);
   }
 
-  static Future<String> getHomeDate() async {
+  static Future<String> getSmileDate() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('HomeDate') ?? '';
+    return prefs.getString('SmileDate') ?? '';
   }
 
-  static Future<void> setMeetDate(String date) async {
+  static Future<void> setTextSmileDate(String textSmile) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString('MeetDate', date);
+    prefs.setString('TextSmileDate', textSmile);
   }
 
-  static Future<String> getStatedDate() async {
+  static Future<String> getTextSmileDate() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('StatedDate') ?? '';
+    return prefs.getString('TextSmileDate') ?? '';
   }
 
-  static Future<void> setStatedDate(String date) async {
+  static Future<void> setQuotesDate(String date) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString('StatedDate', date);
+    prefs.setString('QuotesDate', date);
+  }
+
+  static Future<String> getQuotesDate() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('QuotesDate') ?? '';
   }
 }
