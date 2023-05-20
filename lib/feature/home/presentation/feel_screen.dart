@@ -81,7 +81,7 @@ class _FeelScreenState extends State<FeelScreen> {
                 itemCount: _feelList.length,
               ),
             ),
-            const Spacer(),
+            // const Spacer(),
             CustomButton(
                 onPressed: () async {
                   await SavedData.setSmileDate(
