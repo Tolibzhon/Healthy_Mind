@@ -74,27 +74,29 @@ class WidgetMemoriesContainer extends StatelessWidget {
                         ),
                         itemBuilder: (_) => [
                           PopupMenuItem(
-                            onTap: ()  {
-                              context
-                                  .read<DeleteMemoriesCubit>()
-                                  .delete(model.id);
-                              print('aaaaaaa${model.id}');
-                            },
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(height: 10),
-                                SizedBox(
-                                  width: 90,
-                                  height: 20,
-                                  child: Text(
-                                    "Delete",
-                                    style: AppTextStyles.s20W400(
-                                        color: Colors.black),
+                            child: InkWell(
+                              onTap: () {
+                                context
+                                    .read<DeleteMemoriesCubit>()
+                                    .delete(model.id);
+                                    
+                              },
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(height: 10),
+                                  SizedBox(
+                                    width: 90,
+                                    height: 20,
+                                    child: Text(
+                                      "Delete",
+                                      style: AppTextStyles.s20W400(
+                                          color: Colors.black),
+                                    ),
                                   ),
-                                ),
-                                const Icon(Icons.close)
-                              ],
+                                  const Icon(Icons.close)
+                                ],
+                              ),
                             ),
                           ),
                         ],

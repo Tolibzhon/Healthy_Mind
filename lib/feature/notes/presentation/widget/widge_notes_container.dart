@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:healthy_mind/feature/logic/cubits/delete_note_cubit/delete_note_cubit.dart';
+import 'package:healthy_mind/feature/logic/cubits/get_note_cubit/get_note_cubit.dart';
 import 'package:healthy_mind/feature/logic/models/note_hive_model.dart';
 import 'package:healthy_mind/feature/logic/repositories/note_repo.dart';
 import 'package:healthy_mind/feature/notes/presentation/detaile_notes_screen.dart';
@@ -52,6 +53,7 @@ class WidgetNotesContainer extends StatelessWidget {
                       state.whenOrNull(
                         success: () {
                           showSuccessSnackBar('Deleted!');
+                          context.read<GetNoteCubit>().getNote();
                         },
                       );
                     },
@@ -69,27 +71,28 @@ class WidgetNotesContainer extends StatelessWidget {
                         ),
                         itemBuilder: (_) => [
                           PopupMenuItem(
-                            onTap: () async {
-                              context
-                                  .read<DeleteNoteCubit>()
-                                  .delete(model.id);
-                              print('aaaaaaa${model.id}');
-                            },
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(height: 10),
-                                SizedBox(
-                                  width: 90,
-                                  height: 20,
-                                  child: Text(
-                                    "Delete",
-                                    style: AppTextStyles.s20W400(
-                                        color: Colors.black),
+                            child: InkWell(
+                              onTap: () {
+                                context
+                                    .read<DeleteNoteCubit>()
+                                    .delete(model.id);
+                              },
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(height: 10),
+                                  SizedBox(
+                                    width: 90,
+                                    height: 20,
+                                    child: Text(
+                                      "Delete",
+                                      style: AppTextStyles.s20W400(
+                                          color: Colors.black),
+                                    ),
                                   ),
-                                ),
-                                const Icon(Icons.close)
-                              ],
+                                  const Icon(Icons.close)
+                                ],
+                              ),
                             ),
                           ),
                         ],

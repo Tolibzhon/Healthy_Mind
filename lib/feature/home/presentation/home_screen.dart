@@ -19,8 +19,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  
-
   @override
   void initState() {
     context.read<GetNoteCubit>().getNote();
@@ -63,13 +61,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (snapshot.hasData) {
                       if (snapshot.data!.isNotEmpty) {
                         return InkWell(
-                          onTap: () {
-                            Navigator.push(
+                          onTap: () async {
+                            await Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => const FeelScreen(),
                               ),
                             );
+                            setState(() {});
                           },
                           child: Text(snapshot.data ?? '',
                               style: const TextStyle(
@@ -79,13 +78,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       }
                     }
                     return InkWell(
-                      onTap: () {
-                        Navigator.push(
+                      onTap: () async {
+                        await Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const FeelScreen(),
                           ),
                         );
+                        setState(() {});
                       },
                       child: Image.asset(
                         AppImages.addIcon,
@@ -146,13 +146,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 const Spacer(),
                 InkWell(
-                  onTap: () {
-                    Navigator.push(
+                  onTap: () async {
+                    await Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => const QuotesScreen(),
                       ),
                     );
+                    setState(() {});
                   },
                   child: Container(
                     height: 30,

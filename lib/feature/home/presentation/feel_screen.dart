@@ -91,7 +91,6 @@ class _FeelScreenState extends State<FeelScreen> {
                     _feelList[_index],
                   );
                   Navigator.pop(context);
-                  setState(() {});
                 },
                 text: 'Save'),
             const SizedBox(height: 60),

@@ -23,7 +23,8 @@ class MemoriesRepoImpl implements MemoriesRepo {
   @override
   deleteMemories(int id) async {
     final memoriesBox = await Hive.openBox<MemoriesHiveModel>('memoriesBox');
-    final memoriesModel = memoriesBox.values.toList()[id];
+    final memoriesModel =
+        memoriesBox.values.toList().singleWhere((e) => e.id == id);
     await memoriesModel.delete();
     await memoriesBox.compact();
   }

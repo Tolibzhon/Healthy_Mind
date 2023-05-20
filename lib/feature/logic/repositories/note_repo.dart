@@ -23,7 +23,7 @@ class NoteRepoImpl implements NoteRepo {
   @override
   deleteNote(int id) async {
     final noteBox = await Hive.openBox<NoteHiveModel>('noteBox');
-    final noteModel = noteBox.values.toList()[id];
+    final noteModel = noteBox.values.toList().singleWhere((e) => e.id == id);
     await noteModel.delete();
     await noteBox.compact();
   }
