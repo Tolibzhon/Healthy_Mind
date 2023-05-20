@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "319411614930",
+    "project_id": "healthymind-a4899",
+    "storage_bucket": "healthymind-a4899.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:319411614930:android:5a9b41732c2ecdc18aa90b",
+        "android_client_info": {
+          "package_name": "com.example.healthy_mind"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "319411614930-cdjmu5eui8l6o8lf3icecmds1s6iehe9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZ6MJDZwPylNzdHSbpJGZj5pdrgjuIMdk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "319411614930-cdjmu5eui8l6o8lf3icecmds1s6iehe9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

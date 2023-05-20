@@ -7,18 +7,27 @@ import 'package:healthy_mind/feature/logic/models/memories_hive_model.dart';
 import 'package:healthy_mind/feature/logic/models/note_hive_model.dart';
 import 'package:healthy_mind/feature/logic/repositories/memories_repo.dart';
 import 'package:healthy_mind/feature/logic/repositories/note_repo.dart';
+import 'package:healthy_mind/firebase_options.dart';
+import 'package:healthy_mind/services/notification_service.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
+import 'package:firebase_core/firebase_core.dart';
 
 final scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await NotificationServiceFb().activate();
   await Hive.initFlutter();
-  Hive.registerAdapter(NoteHiveModelAdapter(),);
+  Hive.registerAdapter(
+    NoteHiveModelAdapter(),
+  );
   Hive.registerAdapter(MemoriesHiveModelAdapter());
 
   runApp(const MyApp());
-
 }
 
 class MyApp extends StatelessWidget {
