@@ -1,11 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:healthy_mind/feature/logic/cubits/get_memories_cubit/get_memories_cubit.dart';
 import 'package:healthy_mind/feature/memories/presentation/add_memories_screen.dart';
 import 'package:healthy_mind/feature/memories/presentation/widget/widge_memories_container.dart';
+import 'package:healthy_mind/feature/widgets/app_error_text.dart';
+import 'package:healthy_mind/feature/widgets/app_indicator.dart';
 import 'package:healthy_mind/helpers/app_images.dart';
 import 'package:healthy_mind/helpers/app_text_styles.dart';
 
-class MemoriesScreen extends StatelessWidget {
+class MemoriesScreen extends StatefulWidget {
   const MemoriesScreen({super.key});
+
+  @override
+  State<MemoriesScreen> createState() => _MemoriesScreenState();
+}
+
+class _MemoriesScreenState extends State<MemoriesScreen> {
+  @override
+  void initState() {
+    context.read<GetMemoriesCubit>().getMemories();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,16 +63,27 @@ class MemoriesScreen extends StatelessWidget {
               const Divider(
                 color: Colors.black,
               ),
-              Expanded(
-                child: ListView.separated(
-                    itemCount: 3,
-                    separatorBuilder: (context, index) =>
-                        const SizedBox(height: 12),
-                    itemBuilder: (context, index) =>
-                        const WidgetMemoriesContainer(
-                          title: 'Dinner in Positano',
-                          date: 'June 10, 2023',
-                        )),
+              BlocBuilder<GetMemoriesCubit, GetMemoriesState>(
+                builder: (context, state) {
+                  return state.maybeWhen(
+                      orElse: () => const AppIndicator(),
+                      loading: () => const AppIndicator(),
+                      error: (error) => AppErrorText(error: error),
+                      success: (model) => model.isNotEmpty
+                          ? Expanded(
+                              child: ListView.separated(
+                                  itemCount: model.length,
+                                  separatorBuilder: (context, index) =>
+                                      const SizedBox(height: 12),
+                                  itemBuilder: (context, index) =>
+                                      WidgetMemoriesContainer(
+                                        model: model[index],
+                                      )),
+                            )
+                          : const Center(
+                              child: Text('Empty'),
+                            ));
+                },
               ),
             ],
           ),

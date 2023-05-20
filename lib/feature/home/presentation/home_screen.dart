@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:healthy_mind/feature/home/presentation/feel_screen.dart';
 import 'package:healthy_mind/feature/home/presentation/quotes_screen.dart';
+import 'package:healthy_mind/feature/logic/cubits/get_note_cubit/get_note_cubit.dart';
+import 'package:healthy_mind/feature/notes/presentation/widget/widge_notes_container.dart';
+import 'package:healthy_mind/feature/widgets/app_error_text.dart';
+import 'package:healthy_mind/feature/widgets/app_indicator.dart';
 import 'package:healthy_mind/helpers/app_colors.dart';
 import 'package:healthy_mind/helpers/app_images.dart';
 import 'package:healthy_mind/helpers/app_text_styles.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    context.read<GetNoteCubit>().getNote();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,24 +121,44 @@ class HomeScreen extends StatelessWidget {
             'Your last Notes',
             style: AppTextStyles.s20W600(color: Colors.black),
           ),
-          Expanded(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    AppImages.diaryIcon,
-                    width: 50,
-                  ),
-                  Text(
-                    'You don`t have any notes yet',
-                    style: AppTextStyles.s14W400(
-                        color: Colors.black.withOpacity(0.6)),
-                  )
-                ],
-              ),
-            ),
-          )
+          BlocBuilder<GetNoteCubit, GetNoteState>(
+            builder: (context, state) {
+              return state.maybeWhen(
+                  orElse: () => const AppIndicator(),
+                  loading: () => const AppIndicator(),
+                  error: (error) => AppErrorText(error: error),
+                  success: (model) => model.isNotEmpty
+                      ? Expanded(
+                          child: ListView.separated(
+                            
+                              itemCount: model.length,
+                              separatorBuilder: (context, index) =>
+                                  const SizedBox(height: 12),
+                              itemBuilder: (context, index) =>
+                                  WidgetNotesContainer(
+                                    model: model[index],
+                                  )),
+                        )
+                      : Expanded(
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  AppImages.diaryIcon,
+                                  width: 50,
+                                ),
+                                Text(
+                                  'You don`t have any notes yet',
+                                  style: AppTextStyles.s14W400(
+                                      color: Colors.black.withOpacity(0.6)),
+                                )
+                              ],
+                            ),
+                          ),
+                        ));
+            },
+          ),
         ],
       ),
     )));

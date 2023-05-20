@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:healthy_mind/helpers/app_images.dart';
 import 'package:healthy_mind/helpers/app_text_styles.dart';
 import 'package:healthy_mind/main.dart';
 

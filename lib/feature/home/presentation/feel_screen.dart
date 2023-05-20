@@ -69,7 +69,11 @@ class _FeelScreenState extends State<FeelScreen> {
               ),
             ),
             const Spacer(),
-            const CustomButton(text: 'Save'),
+            CustomButton(
+                onPressed: () async {
+                  print(feel);
+                },
+                text: 'Save'),
             const SizedBox(height: 60),
           ],
         ),
