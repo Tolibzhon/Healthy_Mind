@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:healthy_mind/feature/logic/cubits/delete_memories_cubit/delete_memories_cubit.dart';
 import 'package:healthy_mind/feature/logic/cubits/delete_note_cubit/delete_note_cubit.dart';
 import 'package:healthy_mind/feature/logic/models/note_hive_model.dart';
-import 'package:healthy_mind/feature/logic/repositories/memories_repo.dart';
 import 'package:healthy_mind/feature/logic/repositories/note_repo.dart';
 import 'package:healthy_mind/feature/notes/presentation/detaile_notes_screen.dart';
 import 'package:healthy_mind/feature/widgets/spaces.dart';
@@ -58,17 +56,46 @@ class WidgetNotesContainer extends StatelessWidget {
                       );
                     },
                     builder: (context, state) {
-                      return PopupMenuItem(
-                          child: InkWell(
-                              onTap: () {
-                                context
-                                    .read<DeleteMemoriesCubit>()
-                                    .delete(model.id);
-                                Navigator.of(context).pop();
+                      return PopupMenuButton(
+                        position: PopupMenuPosition.under,
+                        icon: Image.asset(
+                          AppImages.moreIcon,
+                          width: 20,
+                        ),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                        ),
+                        itemBuilder: (BuildContext context) => [
+                          PopupMenuItem(
+                            onTap: () async {
+                              // context
+                              //     .read<DeleteMemoriesCubit>()
+                              //     .delete(model.id);
+                              // Navigator.of(context).pop();
 
-                                print('aaaaaaa${model.id}');
-                              },
-                              child: Text('Close')));
+                              // print('aaaaaaa${model.id}');
+                            },
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(height: 10),
+                                SizedBox(
+                                  width: 90,
+                                  height: 20,
+                                  child: Text(
+                                    "Delete",
+                                    style: AppTextStyles.s20W400(
+                                        color: Colors.black),
+                                  ),
+                                ),
+                                const Icon(Icons.close)
+                              ],
+                            ),
+                          ),
+                        ],
+                      );
                     },
                   ),
                 ],

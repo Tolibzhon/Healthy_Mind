@@ -39,7 +39,7 @@ class _FeelScreenState extends State<FeelScreen> {
                   AppImages.feeling,
                   width: 188,
                 ),
-                const SizedBox()
+                const SizedBox(),
               ],
             ),
             const SizedBox(height: 20),

@@ -3,11 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:healthy_mind/config/premium.dart';
+import 'package:healthy_mind/feature/auth/premium_screen.dart';
 import 'package:healthy_mind/feature/logic/cubits/get_note_cubit/get_note_cubit.dart';
 import 'package:healthy_mind/feature/logic/cubits/set_note_cubit/set_note_cubit.dart';
 import 'package:healthy_mind/feature/logic/models/note_hive_model.dart';
 import 'package:healthy_mind/feature/logic/repositories/note_repo.dart';
-import 'package:healthy_mind/feature/widgets/app_indicator.dart';
 import 'package:healthy_mind/feature/widgets/custom_button.dart';
 import 'package:healthy_mind/feature/widgets/custom_text_field.dart';
 import 'package:healthy_mind/feature/widgets/spaces.dart';
@@ -29,7 +30,7 @@ class _AddNotesScreenState extends State<AddNotesScreen> {
   late TextEditingController _happyMomentsController;
   late TextEditingController _gratefulForController;
   late TextEditingController _myThoughtsController;
-  late String _date = DateFormat('EEEE, MMMM d').format(DateTime.now());
+  late final String _date = DateFormat('EEEE, MMMM d').format(DateTime.now());
   //String _dateB = DateFormat('MMMM dd, yyyy').format(DateTime.now());
 
   File? _image;
@@ -61,7 +62,7 @@ class _AddNotesScreenState extends State<AddNotesScreen> {
       if (pickedFile == null) return null;
       setState(() => _image = File(pickedFile.path));
       _bytes = _image!.readAsBytesSync();
-      sss=String.fromCharCodes(_bytes!);
+      sss = String.fromCharCodes(_bytes!);
     } on PlatformException catch (e) {
       showErrorSnackBar('Failed to select image $e');
     }
@@ -138,8 +139,19 @@ class _AddNotesScreenState extends State<AddNotesScreen> {
                 ),
                 _image == null
                     ? GestureDetector(
-                        onTap: () {
-                          pickImage(ImageSource.gallery);
+                        onTap: () async {
+                          final isBuy = await Premium.getSubscrp();
+                          if (!isBuy) {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PremiumScreen(),
+                              ),
+                              (protected) => false,
+                            );
+                          } else {
+                            pickImage(ImageSource.gallery);
+                          }
                         },
                         child: Center(
                           child: Text(
@@ -185,7 +197,7 @@ class _AddNotesScreenState extends State<AddNotesScreen> {
                               happyMoments: _happyMomentsController.text,
                               gratefulFor: _gratefulForController.text,
                               myThoughts: _myThoughtsController.text,
-                              image: sss,//_bytes,
+                              image: sss, //_bytes,
                               date: _date,
                             );
                             context.read<SetNoteCubit>().setNote(noteHiveModel);
@@ -193,7 +205,7 @@ class _AddNotesScreenState extends State<AddNotesScreen> {
                             showErrorSnackBar('Fill in all the fields');
                           }
                         },
-                        text: 'Add',
+                        text: 'Save',
                         radius: 20,
                       );
                     },
