@@ -35,7 +35,7 @@ class _AddNotesScreenState extends State<AddNotesScreen> {
 
   File? _image;
   Uint8List? _bytes;
-  String sss = '';
+  String? sss;
 
   @override
   void initState() {
@@ -190,15 +190,14 @@ class _AddNotesScreenState extends State<AddNotesScreen> {
                           if (_titleController.text.isNotEmpty &&
                               _happyMomentsController.text.isNotEmpty &&
                               _gratefulForController.text.isNotEmpty &&
-                              _myThoughtsController.text.isNotEmpty 
-                              ) {
+                              _myThoughtsController.text.isNotEmpty) {
                             final noteHiveModel = NoteHiveModel(
                               id: DateTime.now().millisecondsSinceEpoch,
                               title: _titleController.text,
                               happyMoments: _happyMomentsController.text,
                               gratefulFor: _gratefulForController.text,
                               myThoughts: _myThoughtsController.text,
-                              image: sss, //_bytes,
+                              image: sss ?? '', //_bytes,
                               date: _date,
                             );
                             context.read<SetNoteCubit>().setNote(noteHiveModel);

@@ -16,7 +16,7 @@ class _DetaileNotesScreenState extends State<DetaileNotesScreen> {
   late Uint8List outputAsUint8List;
   @override
   void initState() {
-     outputAsUint8List = Uint8List.fromList(widget.model.image.codeUnits);
+    outputAsUint8List = Uint8List.fromList(widget.model.image.codeUnits);
     super.initState();
   }
 
@@ -55,15 +55,17 @@ class _DetaileNotesScreenState extends State<DetaileNotesScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Image.memory(
-                  outputAsUint8List,
-                  width: getWidth(context),
-                  height: 300,
-                  fit: BoxFit.fill,
-                ),
-              ),
+              widget.model.image != ''
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.memory(
+                        outputAsUint8List,
+                        width: getWidth(context),
+                        height: 300,
+                        fit: BoxFit.fill,
+                      ),
+                    )
+                  : const SizedBox(),
               const SizedBox(height: 20),
               Text(
                 'Happy moments',
