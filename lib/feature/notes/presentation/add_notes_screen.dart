@@ -142,12 +142,13 @@ class _AddNotesScreenState extends State<AddNotesScreen> {
                         onTap: () async {
                           final isBuy = await Premium.getSubscrp();
                           if (!isBuy) {
-                            Navigator.pushAndRemoveUntil(
+                            Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => PremiumScreen(),
+                                builder: (context) => PremiumScreen(
+                                  isPop: true,
+                                ),
                               ),
-                              (protected) => false,
                             );
                           } else {
                             pickImage(ImageSource.gallery);
@@ -189,8 +190,8 @@ class _AddNotesScreenState extends State<AddNotesScreen> {
                           if (_titleController.text.isNotEmpty &&
                               _happyMomentsController.text.isNotEmpty &&
                               _gratefulForController.text.isNotEmpty &&
-                              _myThoughtsController.text.isNotEmpty &&
-                              _bytes != null) {
+                              _myThoughtsController.text.isNotEmpty 
+                              ) {
                             final noteHiveModel = NoteHiveModel(
                               id: DateTime.now().millisecondsSinceEpoch,
                               title: _titleController.text,
