@@ -1,5 +1,7 @@
+import 'package:apphud/apphud.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:healthy_mind/config/app_url.dart';
 import 'package:healthy_mind/feature/auth/splash_screen.dart';
 import 'package:healthy_mind/feature/logic/cubits/get_memories_cubit/get_memories_cubit.dart';
 import 'package:healthy_mind/feature/logic/cubits/get_note_cubit/get_note_cubit.dart';
@@ -10,13 +12,14 @@ import 'package:healthy_mind/feature/logic/repositories/note_repo.dart';
 import 'package:healthy_mind/firebase_options.dart';
 import 'package:healthy_mind/services/notification_service.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
 import 'package:firebase_core/firebase_core.dart';
+import 'package:in_app_review/in_app_review.dart';
 
 final scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Apphud.start(apiKey: AppUrl.apphudApiKey); // 3. Apphud
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -28,6 +31,25 @@ void main() async {
   Hive.registerAdapter(MemoriesHiveModelAdapter());
 
   runApp(const MyApp());
+
+  NotificationServiceFb notificationService = NotificationServiceFb();
+  notificationService.activate(); // 2. Уведомления
+
+  await Future.delayed(const Duration(seconds: 14));
+  try {
+    final InAppReview inAppReview =
+        InAppReview.instance; // 1. Оценка приложения
+
+    if (await inAppReview.isAvailable()) {
+      inAppReview.requestReview();
+    } else {
+      inAppReview.openStoreListing(
+        appStoreId: '6449524442',
+      );
+    }
+  } catch (e) {
+    throw Exception(e);
+  }
 }
 
 class MyApp extends StatelessWidget {

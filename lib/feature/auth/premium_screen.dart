@@ -95,16 +95,17 @@ class PremiumScreen extends StatelessWidget {
                 )
               ],
             ),
+          
             const Spacer(),
             CustomButton(
               onPressed: () async {
-                // var paywalls = await Apphud.paywalls();
-                // await Apphud.purchase(
-                //   product: paywalls?.paywalls.first.products!.first,
-                // ).whenComplete(
-                //   () async {
-                //     if (await Apphud.hasActiveSubscription() ||
-                //         await Apphud.hasPremiumAccess()) {
+                var paywalls = await Apphud.paywalls();
+                await Apphud.purchase(
+                  product: paywalls?.paywalls.first.products!.first,
+                ).whenComplete(
+                  () async {
+                    if (await Apphud.hasActiveSubscription() ||
+                        await Apphud.hasPremiumAccess()) {
                 await Premium.setSubscrp();
                 Navigator.pushAndRemoveUntil(
                   context,
@@ -113,11 +114,11 @@ class PremiumScreen extends StatelessWidget {
                   ),
                   (route) => false,
                 );
-                //     }
-                //   },
-                // );
+                    }
+                  },
+                );
               },
-              text: 'Buy premium for \$1,50',
+              text: 'Buy premium for \$1.99',
             ),
             const SizedBox(height: 40),
             Row(

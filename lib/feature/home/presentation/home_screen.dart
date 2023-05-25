@@ -198,24 +198,22 @@ class _HomeScreenState extends State<HomeScreen> {
                           itemBuilder: (context, index) => WidgetNotesContainer(
                                 model: model[index],
                               ))
-                      : Expanded(
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  AppImages.diaryIcon,
-                                  width: 50,
-                                ),
-                                Text(
-                                  'You don`t have any notes yet',
-                                  style: AppTextStyles.s14W400(
-                                      color: Colors.black.withOpacity(0.6)),
-                                )
-                              ],
+                      : Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              AppImages.diaryIcon,
+                              width: 50,
                             ),
-                          ),
+                            Text(
+                              'You don`t have any notes yet',
+                              style: AppTextStyles.s14W400(
+                                  color: Colors.black.withOpacity(0.6)),
+                            )
+                          ],
                         ),
+                      ),
                 );
               },
             ),
