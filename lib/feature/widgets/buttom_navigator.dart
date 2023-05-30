@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:healthy_mind/feature/articles/presentation/articles_screen.dart';
 import 'package:healthy_mind/feature/home/presentation/home_screen.dart';
 import 'package:healthy_mind/feature/memories/presentation/memories_screen.dart';
 import 'package:healthy_mind/feature/notes/presentation/notes_screen.dart';
@@ -71,6 +72,17 @@ class _BottomNavigatorState extends State<BottomNavigatorScreen> {
             ),
             BottomNavigationBarItem(
               activeIcon: Image.asset(
+                AppImages.navbarArticleActive,
+                height: 30,
+              ),
+              icon: Image.asset(
+                AppImages.navbarArticle,
+                height: 30,
+              ),
+              label: ' ',
+            ),
+            BottomNavigationBarItem(
+              activeIcon: Image.asset(
                 AppImages.navbarMemorActive,
                 height: 30,
               ),
@@ -102,5 +114,6 @@ List<Widget> pages = [
   const HomeScreen(),
   const NotesScreen(),
   const MemoriesScreen(),
+  const ArticlesScreen(),
   const SettingsScreen(),
 ];
