@@ -1,6 +1,7 @@
 import 'package:apphud/apphud.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:healthy_mind/bootstrap.dart';
 import 'package:healthy_mind/config/app_url.dart';
 import 'package:healthy_mind/feature/auth/splash_screen.dart';
 import 'package:healthy_mind/feature/logic/cubits/get_memories_cubit/get_memories_cubit.dart';
@@ -30,7 +31,7 @@ void main() async {
   );
   Hive.registerAdapter(MemoriesHiveModelAdapter());
 
-  runApp(const MyApp());
+  startApp();
 
   NotificationServiceFb notificationService = NotificationServiceFb();
   notificationService.activate(); // 2. Уведомления
